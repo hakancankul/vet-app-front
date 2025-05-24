@@ -40,6 +40,12 @@
   }
 }
 
+@layer components {
+  .container {
+    @apply px-4 mx-auto max-w-[90rem] w-full;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

@@ -31,9 +31,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr" className="scroll-smooth">
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased overflow-x-hidden`}>
         <Navbar />
-        <main>{children}</main>
+        <main className="overflow-x-hidden">{children}</main>
         <Footer />
       </body>
     </html>

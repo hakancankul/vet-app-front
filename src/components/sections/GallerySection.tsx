@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { X, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import galleryData from '@/data/gallery.json';
 
 interface GalleryItem {
@@ -14,18 +15,7 @@ interface GalleryItem {
 
 export default function GallerySection() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const itemsToShow = 4; // Bir seferde gösterilecek resim sayısı
-
-  const gallery: GalleryItem[] = galleryData.gallery;
-
-  const nextSlide = () => {
-    setActiveIndex(prev => (prev + 1) % (gallery.length - itemsToShow + 1));
-  };
-
-  const prevSlide = () => {
-    setActiveIndex(prev => (prev - 1 + (gallery.length - itemsToShow + 1)) % (gallery.length - itemsToShow + 1));
-  };
+  const gallery: GalleryItem[] = galleryData.gallery.slice(0, 4); // Sadece ilk 4 fotoğraf
 
   const nextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -53,7 +43,6 @@ export default function GallerySection() {
     }
   };
 
-  // Klavye kontrollerini ekle
   React.useEffect(() => {
     if (selectedImage !== null) {
       window.addEventListener('keydown', handleKeyDown);
@@ -62,88 +51,51 @@ export default function GallerySection() {
   }, [selectedImage]);
 
   return (
-    <section id="galeri" className="relative overflow-hidden bg-white pt-12 pb-32">
-      <motion.div 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="container mx-auto px-4"
-      >
-        <div className="mb-16 text-center">
-          <motion.h2 
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl"
-          >
+    <section id="galeri" className="relative overflow-hidden bg-white py-16">
+      <div className="container mx-auto px-4">
+        <div className="mb-12 text-center">
+          <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
             GALERİ
-          </motion.h2>
-          <motion.p 
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg"
-          >
+          </h2>
+          <p className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg">
             Modern ve tam donanımlı kliniğimizden görüntüler
-          </motion.p>
+          </p>
         </div>
 
-        {/* Gallery Slider */}
-        <div className="relative mx-auto max-w-7xl py-8">
-          {/* Navigation Buttons */}
-          <button
-            onClick={prevSlide}
-            className="absolute -left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-4 shadow-lg transition-all hover:bg-gray-100 hover:shadow-xl disabled:opacity-50 lg:-left-8"
-            disabled={activeIndex === 0}
-          >
-            <ChevronLeft className="h-7 w-7 text-gray-600" />
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute -right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white p-4 shadow-lg transition-all hover:bg-gray-100 hover:shadow-xl disabled:opacity-50 lg:-right-8"
-            disabled={activeIndex === gallery.length - itemsToShow}
-          >
-            <ChevronRight className="h-7 w-7 text-gray-600" />
-          </button>
-
-          {/* Gallery Container */}
-          <div className="overflow-hidden rounded-2xl">
-            <motion.div
-              className="flex gap-6 p-4"
-              initial={false}
-              animate={{ x: `-${activeIndex * (100 / itemsToShow)}%` }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        {/* Gallery Grid */}
+        <div className="grid gap-4 sm:grid-cols-2">
+          {gallery.map((item, index) => (
+            <div
+              key={item.id}
+              className="group relative overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:shadow-xl"
+              onClick={() => setSelectedImage(index)}
             >
-              {gallery.map((item, index) => (
-                <motion.div
-                  key={item.id}
-                  className="w-1/4 flex-shrink-0"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <div
-                    className="group cursor-pointer"
-                    onClick={() => setSelectedImage(index)}
-                  >
-                    <div className="relative aspect-square overflow-hidden rounded-xl shadow-md transition-all duration-300 hover:shadow-xl">
-                      <Image
-                        src={item.image}
-                        alt={item.description}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
+              <div className="relative aspect-[4/3] w-full overflow-hidden">
+                <Image
+                  src={item.image}
+                  alt={item.description}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <p className="text-sm font-medium">{item.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* View All Button */}
+        <div className="mt-8 flex justify-center">
+          <Link
+            href="/galeri"
+            className="group flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-gray-900 shadow-md transition-all hover:bg-blue-50 hover:shadow-lg"
+          >
+            <span>Tüm Galeriyi Gör</span>
+            <ArrowRight className="h-5 w-5 text-blue-600 transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
 
         {/* Lightbox */}
@@ -153,7 +105,7 @@ export default function GallerySection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
               onClick={() => setSelectedImage(null)}
             >
               <button
@@ -183,9 +135,9 @@ export default function GallerySection() {
               {/* Image Container */}
               <motion.div
                 key={selectedImage}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
                 className="relative h-full w-full"
                 onClick={(e) => e.stopPropagation()}
@@ -196,10 +148,10 @@ export default function GallerySection() {
                   fill
                   className="object-contain"
                   priority
+                  sizes="100vw"
                 />
                 <div 
                   className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-lg bg-black/50 px-6 py-3 text-center backdrop-blur-sm"
-                  onClick={(e) => e.stopPropagation()}
                 >
                   <p className="text-sm text-gray-200">{gallery[selectedImage].description}</p>
                 </div>
@@ -212,10 +164,10 @@ export default function GallerySection() {
         <div className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 opacity-10">
           <div className="h-64 w-64 rounded-full bg-blue-600 blur-3xl"></div>
         </div>
-        <div className="pointer-events-none absolute right-0 top-0 opacity-10">
+        <div className="pointer-events-none absolute right-0 bottom-0 opacity-10">
           <div className="h-96 w-96 rounded-full bg-blue-400 blur-3xl"></div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 } 

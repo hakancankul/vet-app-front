@@ -1,0 +1,74 @@
+{
+  "reviews": [
+    {
+      "id": 1,
+      "name": "Damla Ghin",
+      "comment": "Herkes çok iyi davranıyor hep yardımcı oluyorlar, iyice zaman ayırıp acele etmeden dinliyorlar, sokaktan bulduğum kediyi öğrenci olduğum için de, kendileri bazı şeyleri üstlendiler, kısacası bilgi ve kibarlık konusunda oldukça iyiler, gerçekten teşekkürler ediyorum🙏",
+      "rating": 5,
+      "profileImage": "/images/reviews/profile1.png"
+    },
+    {
+      "id": 2,
+      "name": "Elif Özsürücü",
+      "comment": "Kedimi ilk bulduğum andan itibaren tesadüfen gitmiştim. Duyum aldığım diğer veterinerler gibi para için yapmadıkları çok belli. Her bir canlıya özelinde değer vererek bakıyorlar. Kedim epilepsi hastası olduğu için özel tavsiyeler verdiler ve ne zaman gitsem ilgiyle dinleyip cevap verdiler. Artık başka bir şehirdeyim fakat yine de telefonla yardımcı olabileceklerini söyledikleri için hala iletişim halindeyim. İlgi gösteren herkese binlerce kez teşekkürler.",
+      "rating": 5,
+      "profileImage": "/images/reviews/profile2.png"
+    },
+    {
+      "id": 3,
+      "name": "Burcu Karabayır",
+      "comment": "Hayatımda ilk kez kedi sahiplendim. Daha önce gittiğim veteriner baştan savma beni göndermiş. Mekvet'e gittiğimde bu durumu anladım. Gittiğimden bu yana da çok çok memnunum. En ufak terslik, olumsuz bir durum dahi yaşamadım. Özellikle \"Vuslat Hanım\" her ziyaretimizde sorularımızı sabırla yanıtlıyor. Çok tatlı, işini çok seven bir veteriner. Harika bir hizmet sağlıyorlar 🌸",
+      "rating": 5,
+      "profileImage": "/images/reviews/profile3.png"
+    },
+    {
+      "id": 4,
+      "name": "Nilüfer Ucurum",
+      "comment": "Kedim için gittim ve çok memnun kaldım harika tüm ekip özellikle vuslat hanım çok çok harika bir insan çok taşındığımız için sürekli veteriner değiştirmek zorunda kaldık ama artık tek adres olacak mekvet ve vuslat hanım bizim için gösterdiği ilgi ve alaka için vuslat hanım a ayrıca tüm ekibe çok teşekkür ederiz iyki varsınız ❤️",
+      "rating": 5,
+      "profileImage": "/images/reviews/profile4.png"
+    },
+    {
+      "id": 5,
+      "name": "Mahmut Gülalan",
+      "comment": "Çok vetiriner gördüm sizin kadar ilgili işinin ehli ekip görmedim ilgi olsun deneyim olsun evlatlarımızın sorunlarını net çözebilen bir ekipsiniz herşey için teşekkürler sizleri tanıdığıma çok mutlu oldum ekip erkadaşlara extra teşekkürler",
+      "rating": 5,
+      "profileImage": "/images/reviews/profile5.png"
+    },
+    {
+      "id": 6,
+      "name": "Enes Çelebi",
+      "comment": "Bilgi birikimi dışında bazen insanlar güven ve aile ortamını da arıyor. Sonuçta veterinere gitme nedenimiz beraber bir hayat sürdürdüğümüz canlarımız ve onları aileden biri gibi olan bir uzmanın kontrol ve tedavi etmesi yüreğimizde ki o endişeyi yok ediyor. İyi ki varsınız ailemiz olan muhteşem ekip 🤗",
+      "rating": 5,
+      "profileImage": "/images/reviews/profile6.png"
+    },
+    {
+      "id": 7,
+      "name": "Bircan Beşgül",
+      "comment": "Tek kelime ile izmirde gidilecek tek klinik. Bilgi donanımı,hayvanlara olan sevgisi,sabrı ile her yerden farklı ve gözüm kapali güveniyorum.Kurulduğu günden İzmir çok şanslı.gittiginzde mutlaka Mert bey ile tanışın. Kendisi iyi ki var 💕",
+      "rating": 5,
+      "profileImage": "/images/reviews/profile7.png"
+    },
+    {
+      "id": 8,
+      "name": "Simge Pelin Özsütemen",
+      "comment": "Üç kedimi de gönül rahatlığı ile götürüyorum. Çok iyiler çok ilgililer iyi ki varlar.",
+      "rating": 5,
+      "profileImage": "/images/reviews/profile8.png"
+    },
+    {
+      "id": 9,
+      "name": "Aylin Tabak",
+      "comment": "Küçük dostlarınızı rahatlıkla teslim edebilirsiniz, uzun süredir beraberiz küçük oğluşuma ellerinden geleni yaptılar, iyi ki varsınız, emeğinize sağlık 🙏🙏🙏🙏",
+      "rating": 5,
+      "profileImage": "/images/reviews/profile9.png"
+    },
+    {
+      "id": 10,
+      "name": "Orkun Artun",
+      "comment": "Tüm hekimler birbirinden ilgili iyi insanlar. Türlü bahanelerle kazıklamaya çalışan değil sorununuzu çözmek için uğraşan insanlar. Tavsiye ederim",
+      "rating": 5,
+      "profileImage": "/images/reviews/profile10.png"
+    }
+  ]
+} 
