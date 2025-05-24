@@ -1,149 +1,111 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { 
-  Syringe, 
-  Stethoscope, 
-  Microscope, 
-  Scissors, 
-  Heart, 
-  Hotel 
-} from 'lucide-react';
+import { Check } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const services = [
   {
-    title: 'AŞILAMA',
-    description: 'Düzenli aşılama programları ile evcil hayvanınızın sağlığını koruyoruz.',
-    icon: Syringe
+    title: 'Sağlık Hizmetleri',
+    description: 'Kapsamlı sağlık kontrolleri ve tedavi hizmetleri',
+    details: [
+      'Uzman Veteriner Kadrosu',
+      'Modern Tıbbi Ekipmanlar'
+    ],
+    icon: '/images/health.png',
+    link: '/hizmetler/saglik-hizmetleri'
   },
   {
-    title: 'GENEL MUAYENE',
-    description: 'Kapsamlı sağlık kontrolleri ve önleyici bakım hizmetleri.',
-    icon: Stethoscope
-  },
-  {
-    title: 'LABORATUVAR',
-    description: 'Modern cihazlarla tam donanımlı laboratuvar hizmetleri.',
-    icon: Microscope
-  },
-  {
-    title: 'CERRAHİ OPERASYONLAR',
-    description: 'Deneyimli ekibimizle güvenli cerrahi müdahaleler.',
-    icon: Scissors
-  },
-  {
-    title: 'ACİL SERVİS',
-    description: '7/24 acil veteriner hizmetleri.',
-    icon: Heart
-  },
-  {
-    title: 'PET HOTEL',
-    description: 'Konforlu ve güvenli pet hotel hizmetimiz.',
-    icon: Hotel
+    title: 'Genel Cerrahi',
+    description: 'Uzman ekibimizle cerrahi operasyonlar',
+    details: [
+      'Steril Ameliyathane',
+      'Deneyimli Cerrahi Ekibi'
+    ],
+    icon: '/images/surgery.png',
+    link: '/hizmetler/genel-cerrahi'
   }
 ];
 
 export default function ServicesSection() {
   return (
-    <section id="hizmetlerimiz" className="relative overflow-hidden bg-white pt-12 pb-24 scroll-mt-40">
-      <motion.div 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="container mx-auto px-4"
-      >
-        <div className="mb-16 text-center">
+    <section id="hizmetlerimiz" className="relative overflow-hidden bg-white py-12 scroll-mt-40">
+      {/* Sol taraftaki mavi alan */}
+      <div className="absolute left-0 top-0 bottom-0 w-[240px] bg-[#1e62b3] hidden lg:flex flex-col items-center justify-center text-white">
+        <div className="text-[72px] font-bold leading-none">20</div>
+        <div className="text-[32px] font-light">Yıllık</div>
+        <div className="text-[32px] font-light">Deneyimle</div>
+      </div>
+
+      <div className="container mx-auto px-4 lg:pl-[280px]">
+        <div className="mb-8 text-center">
           <motion.h2 
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
             className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl"
           >
             HİZMETLERİMİZ
           </motion.h2>
           <motion.p 
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg"
           >
             Modern ekipmanlarımız ve uzman kadromuz ile evcil dostlarınıza en iyi hizmeti sunuyoruz.
           </motion.p>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            return (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {services.map((service, index) => (
+            <Link 
+              href={service.link} 
+              key={service.title}
+              className="block group"
+            >
               <motion.div
-                key={service.title}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ 
-                  scale: 1.02,
-                  y: -5,
-                  transition: { type: "spring", stiffness: 300, damping: 15 }
-                }}
-                className="group relative overflow-hidden rounded-2xl bg-white p-8 shadow-lg transition-all duration-500"
+                className="bg-[#f8f9ff] rounded-lg p-8 h-full hover:shadow-lg transition-all group-hover:bg-white"
               >
-                <div className="relative z-10">
-                  <motion.div 
-                    className="mb-6 inline-block rounded-xl bg-blue-100 p-3 text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-lg"
-                    whileHover={{ rotate: -8 }}
-                    whileTap={{ scale: 0.9 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                  >
-                    <Icon size={28} className="transition-transform duration-500 group-hover:scale-110" />
-                  </motion.div>
-                  <motion.h3 
-                    className="mb-4 text-xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-blue-600"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.15 }}
-                  >
-                    {service.title}
-                  </motion.h3>
-                  <motion.p 
-                    className="text-gray-600 transition-colors duration-300 group-hover:text-gray-700"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.2 }}
-                  >
-                    {service.description}
-                  </motion.p>
+                <div className="mb-6">
+                  <Image 
+                    src={service.icon} 
+                    alt={service.title} 
+                    width={48}
+                    height={48}
+                    className="text-[#1e3c72]"
+                  />
                 </div>
                 
-                {/* Decorative background */}
-                <motion.div 
-                  className="absolute right-0 top-0 -z-10 h-full w-1/2 bg-gradient-to-l from-blue-50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  initial={{ x: 100 }}
-                  whileHover={{ x: 0 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 30 }}
-                />
-                <motion.div 
-                  className="absolute bottom-0 left-0 -z-10 h-1/2 w-full bg-gradient-to-t from-blue-50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  initial={{ y: 50 }}
-                  whileHover={{ y: 0 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 30 }}
-                />
-              </motion.div>
-            );
-          })}
-        </div>
+                <h3 className="text-xl font-bold text-[#1a1a1a] mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 mb-6">
+                  {service.description}
+                </p>
 
-        {/* Decorative Elements */}
-        <div className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 opacity-10">
-          <div className="h-64 w-64 rounded-full bg-blue-600 blur-3xl"></div>
+                {service.details.map((detail, idx) => (
+                  <div key={idx} className="flex items-center gap-2 mb-2 text-gray-700">
+                    <Check size={16} className="text-green-500 flex-shrink-0" />
+                    <span>{detail}</span>
+                  </div>
+                ))}
+
+                <div className="mt-6 text-[#1e62b3] font-semibold group-hover:text-[#154785] transition-colors flex items-center gap-1">
+                  Devamını Oku
+                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </motion.div>
+            </Link>
+          ))}
         </div>
-        <div className="pointer-events-none absolute right-0 top-0 opacity-10">
-          <div className="h-96 w-96 rounded-full bg-blue-400 blur-3xl"></div>
-        </div>
-      </motion.div>
+      </div>
     </section>
   );
 } 

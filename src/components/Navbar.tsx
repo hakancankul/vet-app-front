@@ -76,7 +76,7 @@ export default function Navbar() {
       <div className="bg-white shadow-md">
         <nav className="mx-auto max-w-7xl px-4 lg:px-8" aria-label="Global">
           {/* Main navbar content */}
-          <div className="flex h-14 items-center justify-center">
+          <div className="flex h-14 items-center">
             <Link href="/" className="p-0 transition-transform hover:scale-105">
               <span className="sr-only">Veteriner Kliniği</span>
               <div className="flex items-center gap-2 px-2 py-1.5">
@@ -90,7 +90,7 @@ export default function Navbar() {
                 />
                 <div className="flex flex-col">
                   <span className="text-base sm:text-lg font-bold tracking-tight text-blue-600">MEKVET</span>
-                  <span className="hidden sm:block text-[10px] sm:text-xs font-medium text-gray-600">Veteriner Kliniği</span>
+                  <span className="text-[10px] sm:text-xs font-medium text-gray-600">Veteriner Kliniği</span>
                 </div>
               </div>
             </Link>
@@ -109,7 +109,7 @@ export default function Navbar() {
 
             <button
               type="button"
-              className="lg:hidden absolute right-4 -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-600 transition-colors hover:bg-gray-100"
+              className="lg:hidden ml-auto -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-600 transition-colors hover:bg-gray-100"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <span className="sr-only">{mobileMenuOpen ? 'Menüyü kapat' : 'Menüyü aç'}</span>

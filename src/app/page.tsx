@@ -2,12 +2,13 @@
 
 import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
+import HeroSection from '@/components/sections/HeroSection';
+import WhyUsSection from '@/components/sections/WhyUsSection';
+import ServicesSection from '@/components/sections/ServicesSection';
+import TeamSection from '@/components/sections/TeamSection';
+import ReviewsSection from '@/components/sections/ReviewsSection';
 
-const HeroSection = dynamic(() => import('@/components/sections/HeroSection'));
-const ServicesSection = dynamic(() => import('@/components/sections/ServicesSection'));
-const TeamSection = dynamic(() => import('@/components/sections/TeamSection'));
 const GallerySection = dynamic(() => import('@/components/sections/GallerySection'));
-const WhyUsSection = dynamic(() => import('@/components/sections/WhyUsSection'));
 
 export default function Home() {
   return (
@@ -15,10 +16,11 @@ export default function Home() {
       <Navbar />
       <main>
         <HeroSection />
+        <WhyUsSection />
         <ServicesSection />
         <TeamSection />
+        <ReviewsSection />
         <GallerySection />
-        <WhyUsSection />
       </main>
     </>
   );
