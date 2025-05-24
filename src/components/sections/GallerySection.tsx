@@ -31,7 +31,7 @@ export default function GallerySection() {
     }
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = React.useCallback((e: KeyboardEvent) => {
     if (selectedImage === null) return;
     
     if (e.key === 'ArrowRight') {
@@ -41,14 +41,14 @@ export default function GallerySection() {
     } else if (e.key === 'Escape') {
       setSelectedImage(null);
     }
-  };
+  }, [selectedImage, gallery.length]);
 
   React.useEffect(() => {
     if (selectedImage !== null) {
       window.addEventListener('keydown', handleKeyDown);
       return () => window.removeEventListener('keydown', handleKeyDown);
     }
-  }, [selectedImage]);
+  }, [selectedImage, handleKeyDown]);
 
   return (
     <section id="galeri" className="relative overflow-hidden bg-white py-16">

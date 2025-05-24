@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import galleryData from '@/data/gallery.json';
@@ -30,7 +29,7 @@ export default function GalleryPage() {
     }
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = React.useCallback((e: KeyboardEvent) => {
     if (selectedImage === null) return;
     
     if (e.key === 'ArrowRight') {
@@ -40,14 +39,14 @@ export default function GalleryPage() {
     } else if (e.key === 'Escape') {
       setSelectedImage(null);
     }
-  };
+  }, [selectedImage, gallery.length]);
 
   React.useEffect(() => {
     if (selectedImage !== null) {
       window.addEventListener('keydown', handleKeyDown);
       return () => window.removeEventListener('keydown', handleKeyDown);
     }
-  }, [selectedImage]);
+  }, [selectedImage, handleKeyDown]);
 
   return (
     <main className="min-h-screen bg-white pt-24">
