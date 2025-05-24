@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Instagram } from 'lucide-react';
 
 const services = [
@@ -20,6 +21,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-blue-100 bg-blue-50">
       <div className="container mx-auto px-4 py-8">
+        {/* Information Grid */}
         <div className="grid gap-6 md:grid-cols-4">
           {/* İletişim */}
           <div>
@@ -85,6 +87,23 @@ export default function Footer() {
                 <Instagram className="h-4 w-4" />
                 <span className="text-sm font-medium">Instagram</span>
               </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Logo Section */}
+        <div className="mt-16 flex justify-center">
+          <div className="flex items-center gap-4">
+            <Image
+              src="/images/logo.png"
+              alt="MEKVET Logo"
+              width={160}
+              height={160}
+              className="h-32 w-auto"
+            />
+            <div className="flex flex-col">
+              <span className="text-3xl font-bold tracking-tight text-blue-600">MEKVET</span>
+              <span className="text-xl font-medium text-blue-500">Veteriner Kliniği</span>
             </div>
           </div>
         </div>
