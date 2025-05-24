@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
@@ -81,39 +81,41 @@ export default function ReviewsSection() {
         </div>
 
         <div className="relative max-w-3xl mx-auto">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.5 }}
-            className="bg-white rounded-2xl p-8 md:p-12 shadow-sm text-center h-[400px] flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex justify-center mb-6">
-                {[...Array(reviews[currentIndex].rating)].map((_, i) => (
-                  <Star
-                    key={i}
-                    size={24}
-                    className="text-yellow-400 fill-yellow-400"
-                  />
-                ))}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white rounded-2xl p-8 md:p-12 shadow-sm text-center h-[400px] flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex justify-center mb-6">
+                  {[...Array(reviews[currentIndex].rating)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={24}
+                      className="text-yellow-400 fill-yellow-400"
+                    />
+                  ))}
+                </div>
+                
+                <p className="text-gray-700 text-lg md:text-xl mb-8 italic line-clamp-4">
+                  &ldquo;{reviews[currentIndex].content}&rdquo;
+                </p>
               </div>
-              
-              <p className="text-gray-700 text-lg md:text-xl mb-8 italic line-clamp-4">
-                "{reviews[currentIndex].content}"
-              </p>
-            </div>
 
-            <div>
-              <div className="font-semibold text-gray-900 mb-1">
-                {reviews[currentIndex].name}
+              <div>
+                <div className="font-semibold text-gray-900 mb-1">
+                  {reviews[currentIndex].name}
+                </div>
+                <div className="text-gray-500">
+                  {reviews[currentIndex].type}
+                </div>
               </div>
-              <div className="text-gray-500">
-                {reviews[currentIndex].type}
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </AnimatePresence>
 
           {/* Navigation Buttons */}
           <button
