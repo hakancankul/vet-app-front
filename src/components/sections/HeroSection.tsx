@@ -52,12 +52,12 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-[calc(100vh-0px)] pt-20 overflow-hidden bg-gray-50">
+    <section className="relative overflow-hidden bg-gray-50 pt-16 pb-16">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-5" />
 
       {/* Content */}
-      <div className="container relative mx-auto grid min-h-[calc(100vh-80px)] items-center px-4 py-8 lg:grid-cols-2 lg:gap-8">
+      <div className="container relative mx-auto grid items-center px-4 py-16 lg:grid-cols-2 lg:gap-8">
         {/* Text Content */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
@@ -110,7 +110,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative mt-8 lg:mt-0"
         >
-          <div className="relative h-[350px] lg:h-[500px] w-full overflow-hidden rounded-2xl">
+          <div className="relative h-[400px] w-full overflow-hidden rounded-2xl lg:h-[500px]">
             {slides.map((slide, index) => (
               <motion.div
                 key={slide.image}

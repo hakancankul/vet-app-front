@@ -40,7 +40,7 @@ const contactInfo = [
 
 export default function ContactSection() {
   return (
-    <section className="relative overflow-hidden bg-white py-20">
+    <section className="relative overflow-hidden bg-white pt-12 pb-24">
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -54,7 +54,7 @@ export default function ContactSection() {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="mb-4 text-4xl font-bold text-gray-900"
+            className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl"
           >
             İLETİŞİM BİLGİLERİ
           </motion.h2>
@@ -63,7 +63,7 @@ export default function ContactSection() {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mx-auto max-w-2xl text-lg text-gray-600"
+            className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg"
           >
             Evcil dostlarınızın sağlığı için 7/24 hizmetinizdeyiz. Bize aşağıdaki kanallardan ulaşabilirsiniz.
           </motion.p>

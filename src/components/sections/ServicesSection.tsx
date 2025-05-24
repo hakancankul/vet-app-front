@@ -45,7 +45,7 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <section className="relative overflow-hidden bg-white py-20">
+    <section id="hizmetlerimiz" className="relative overflow-hidden bg-white pt-12 pb-24 scroll-mt-40">
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -59,7 +59,7 @@ export default function ServicesSection() {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="mb-4 text-4xl font-bold text-gray-900"
+            className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl"
           >
             HİZMETLERİMİZ
           </motion.h2>
@@ -68,7 +68,7 @@ export default function ServicesSection() {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mx-auto max-w-2xl text-lg text-gray-600"
+            className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg"
           >
             Modern ekipmanlarımız ve uzman kadromuz ile evcil dostlarınıza en iyi hizmeti sunuyoruz.
           </motion.p>
@@ -85,18 +85,52 @@ export default function ServicesSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)"
+                  scale: 1.02,
+                  y: -5,
+                  transition: { type: "spring", stiffness: 300, damping: 15 }
                 }}
-                className="group rounded-xl bg-white p-8 shadow-lg transition-all duration-300"
+                className="group relative overflow-hidden rounded-2xl bg-white p-8 shadow-lg transition-all duration-500"
               >
-                <div className="mb-4 inline-block rounded-full bg-blue-100 p-3 text-blue-600 transition-colors duration-300 group-hover:bg-blue-600 group-hover:text-white">
-                  <Icon size={24} />
+                <div className="relative z-10">
+                  <motion.div 
+                    className="mb-6 inline-block rounded-xl bg-blue-100 p-3 text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-lg"
+                    whileHover={{ rotate: -8 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <Icon size={28} className="transition-transform duration-500 group-hover:scale-110" />
+                  </motion.div>
+                  <motion.h3 
+                    className="mb-4 text-xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-blue-600"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.15 }}
+                  >
+                    {service.title}
+                  </motion.h3>
+                  <motion.p 
+                    className="text-gray-600 transition-colors duration-300 group-hover:text-gray-700"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.2 }}
+                  >
+                    {service.description}
+                  </motion.p>
                 </div>
-                <h3 className="mb-3 text-xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-blue-600">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600">{service.description}</p>
+                
+                {/* Decorative background */}
+                <motion.div 
+                  className="absolute right-0 top-0 -z-10 h-full w-1/2 bg-gradient-to-l from-blue-50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  initial={{ x: 100 }}
+                  whileHover={{ x: 0 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 30 }}
+                />
+                <motion.div 
+                  className="absolute bottom-0 left-0 -z-10 h-1/2 w-full bg-gradient-to-t from-blue-50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  initial={{ y: 50 }}
+                  whileHover={{ y: 0 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 30 }}
+                />
               </motion.div>
             );
           })}

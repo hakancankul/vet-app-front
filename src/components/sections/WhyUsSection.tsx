@@ -28,7 +28,7 @@ const features = [
 
 export default function WhyUsSection() {
   return (
-    <section className="relative overflow-hidden bg-gray-50 py-20">
+    <section className="relative overflow-hidden bg-gray-50 pt-12 pb-24">
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -42,7 +42,7 @@ export default function WhyUsSection() {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="mb-4 text-4xl font-bold text-gray-900"
+            className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl"
           >
             NEDEN BİZ?
           </motion.h2>
@@ -51,7 +51,7 @@ export default function WhyUsSection() {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mx-auto max-w-2xl text-lg text-gray-600"
+            className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg"
           >
             Evcil dostlarınızın sağlığı için en iyi hizmeti sunmak önceliğimizdir.
           </motion.p>
@@ -68,19 +68,24 @@ export default function WhyUsSection() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ y: -8 }}
-                className="text-center"
+                className="group relative overflow-hidden rounded-2xl bg-white p-8 text-center shadow-lg transition-all duration-500 hover:shadow-xl"
               >
                 <motion.div 
                   whileHover={{ scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 text-blue-600"
+                  className="relative mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-xl bg-blue-100 text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-lg"
                 >
-                  <Icon size={32} className="transition-transform duration-300 group-hover:rotate-12" />
+                  <Icon size={36} className="transition-transform duration-500 group-hover:rotate-[-8deg] group-hover:scale-110" />
                 </motion.div>
-                <h3 className="mb-3 text-xl font-bold text-gray-900 transition-colors duration-300 hover:text-blue-600">
+                <h3 className="relative mb-4 text-xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-blue-600">
                   {feature.name}
                 </h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <p className="relative text-gray-600 transition-colors duration-300 group-hover:text-gray-700">
+                  {feature.description}
+                </p>
+
+                {/* Decorative background */}
+                <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-blue-50/50 to-blue-50/50 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               </motion.div>
             );
           })}

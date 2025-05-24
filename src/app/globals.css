@@ -33,6 +33,11 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Scroll Offset for Section Headers */
+  section[id] {
+    scroll-margin-top: 2rem;
+  }
 }
 
 @layer utilities {
