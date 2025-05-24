@@ -1,9 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Phone, Calendar, ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
+import { Phone, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const slides = [
