@@ -40,9 +40,10 @@ export default function ReviewsSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5 }}
-              className="bg-white rounded-2xl p-8 md:p-12 shadow-sm text-center min-h-[400px] flex flex-col justify-between"
+              className="bg-white rounded-2xl p-8 md:p-12 shadow-sm text-center h-[500px] flex flex-col"
             >
-              <div>
+              {/* Stars and Comment Section - Takes up most space */}
+              <div className="flex-1 flex flex-col">
                 <div className="flex justify-center mb-6">
                   {[...Array(reviews[currentIndex].rating)].map((_, i) => (
                     <Star
@@ -53,13 +54,16 @@ export default function ReviewsSection() {
                   ))}
                 </div>
                 
-                <p className="text-gray-700 text-lg md:text-xl mb-8 italic">
-                  &ldquo;{reviews[currentIndex].comment}&rdquo;
-                </p>
+                <div className="flex-1 flex items-center justify-center">
+                  <p className="text-gray-700 text-lg md:text-xl italic">
+                    &ldquo;{reviews[currentIndex].comment}&rdquo;
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <div className="flex items-center justify-center gap-4 mb-4">
+              {/* Profile Section - Fixed height at bottom */}
+              <div className="mt-8">
+                <div className="flex items-center justify-center gap-4">
                   <div className="relative w-16 h-16 overflow-hidden rounded-full border-2 border-gray-100">
                     <Image
                       src={reviews[currentIndex].profileImage}
