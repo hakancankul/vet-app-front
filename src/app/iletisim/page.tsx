@@ -55,18 +55,18 @@ const contactInfo: ContactInfo[] = [
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-gray-50 pt-24">
+    <div className="min-h-screen bg-gray-50 pt-16 md:pt-24">
       {/* Main Content Section */}
-      <section className="py-8">
+      <section className="py-4 md:py-8">
         <div className="container mx-auto px-4">
-          <div className="grid gap-8 lg:grid-cols-2">
+          <div className="flex flex-col gap-4 md:gap-8 lg:grid lg:grid-cols-2">
             {/* Map Section */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="h-full"
+              className="order-2 h-full lg:order-1"
             >
               <div className="overflow-hidden rounded-xl bg-white p-3 shadow-lg">
                 <div className="aspect-[4/3] w-full">
@@ -84,41 +84,41 @@ export default function ContactPage() {
             </motion.div>
 
             {/* Contact Info Section */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="order-1 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:order-2">
               {contactInfo.map((info, index) => {
                 const Icon = info.icon;
                 return (
                   <motion.div
                     key={info.title}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     whileHover={{ y: -2 }}
-                    className={`group flex h-full flex-col rounded-xl bg-white p-4 text-center shadow transition-all duration-300 hover:shadow-md ${
+                    className={`group flex h-full flex-col rounded-xl bg-white p-4 shadow transition-all duration-300 hover:shadow-md ${
                       info.icon === Instagram ? 'hover:bg-gradient-to-br hover:from-purple-600/10 hover:to-pink-500/10' : ''
                     }`}
                   >
                     <motion.div 
                       whileHover={{ scale: 1.1 }}
                       transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                      className={`mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-300 ${
+                      className={`mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full transition-colors duration-300 ${
                         info.icon === Instagram 
                           ? 'bg-gradient-to-br from-purple-600 to-pink-500 text-white' 
                           : 'bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white'
                       }`}
                     >
-                      <Icon size={20} />
+                      <Icon size={24} />
                     </motion.div>
-                    <h3 className="mb-2 text-base font-bold text-gray-900">{info.title}</h3>
-                    <div className="flex grow flex-col justify-center space-y-1">
+                    <h3 className="mb-2 text-lg font-bold text-gray-900">{info.title}</h3>
+                    <div className="flex grow flex-col justify-center space-y-2">
                       {info.details.map((detail) => (
                         <div key={detail.label}>
-                          <p className="text-xs font-medium text-gray-500">{detail.label}</p>
+                          <p className="text-sm font-medium text-gray-500">{detail.label}</p>
                           {detail.href ? (
                             <a 
                               href={detail.href}
-                              className={`text-xs font-semibold transition-colors duration-300 ${
+                              className={`text-sm font-semibold transition-colors duration-300 ${
                                 info.icon === Instagram 
                                   ? 'text-gray-900 hover:text-pink-600' 
                                   : 'text-gray-900 hover:text-blue-600'
@@ -127,7 +127,7 @@ export default function ContactPage() {
                               {detail.value}
                             </a>
                           ) : (
-                            <p className="text-xs font-semibold text-gray-900">
+                            <p className="text-sm font-semibold text-gray-900">
                               {detail.value}
                             </p>
                           )}

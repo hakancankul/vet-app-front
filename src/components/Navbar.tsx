@@ -36,7 +36,7 @@ export default function Navbar() {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
-    if (latest > previous && latest > 50) {
+    if (latest > previous && latest > 150) {
       setHidden(true);
     } else {
       setHidden(false);
@@ -44,15 +44,7 @@ export default function Navbar() {
   });
 
   return (
-    <motion.div
-      variants={{
-        visible: { y: 0 },
-        hidden: { y: "-100%" },
-      }}
-      animate={hidden ? "hidden" : "visible"}
-      transition={{ duration: 0.35, ease: "easeInOut" }}
-      className="fixed left-0 right-0 top-0 z-50"
-    >
+    <div className={`fixed left-0 right-0 top-0 z-50 transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'} lg:transition-none`}>
       {/* TopBanner */}
       <div className="bg-blue-600 py-2 transition-colors duration-300 hover:bg-blue-700">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -85,26 +77,26 @@ export default function Navbar() {
       {/* Navbar */}
       <header className="bg-white shadow-md">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 lg:px-8" aria-label="Global">
-          <div className="flex lg:flex-1">
+          <div className="flex flex-1 justify-center lg:justify-start">
             <Link href="/" className="p-0 transition-transform hover:scale-105">
               <span className="sr-only">Veteriner Kliniği</span>
-              <div className="flex items-center gap-4 py-2">
+              <div className="flex items-center gap-2 py-2">
                 <Image
-                  className="h-16 w-auto"
+                  className="h-10 w-auto sm:h-16"
                   src="/images/logo.png"
                   alt="Logo"
                   width={100}
                   height={100}
                   priority
                 />
-                <div className="hidden sm:flex sm:flex-col">
-                  <span className="text-xl font-bold tracking-tight text-blue-600">MEKVET</span>
-                  <span className="text-sm font-medium text-gray-600">Veteriner Kliniği</span>
+                <div className="flex items-center gap-2 sm:flex-col sm:items-start sm:gap-0">
+                  <span className="text-base sm:text-xl font-bold tracking-tight text-blue-600">MEKVET</span>
+                  <span className="hidden xs:inline text-xs sm:text-sm font-medium text-gray-600 before:content-['-'] before:mx-2 sm:before:content-none">Veteriner Kliniği</span>
                 </div>
               </div>
             </Link>
           </div>
-          <div className="flex lg:hidden">
+          <div className="absolute right-4 flex lg:hidden">
             <button
               type="button"
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
@@ -188,6 +180,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 } 
