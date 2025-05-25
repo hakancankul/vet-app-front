@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -18,7 +18,7 @@ export default function ReviewsSection() {
     setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
   };
 
-  const handleDragEnd = (event: any, info: any) => {
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const dragDistance = info.offset.x;
     const dragThreshold = 50; // minimum drag distance to trigger slide change
 

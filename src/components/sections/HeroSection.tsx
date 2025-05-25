@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, AnimatePresence, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Phone, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect, useRef, TouchEvent } from 'react';
 

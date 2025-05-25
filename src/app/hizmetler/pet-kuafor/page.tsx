@@ -1,6 +1,6 @@
 'use client';
 
-import { Scissors, Bath, Footprints, Ear, Heart, Brush } from 'lucide-react';
+import { Scissors, Bath, Footprints, Ear, Brush } from 'lucide-react';
 import ServiceLayout from '@/components/layouts/ServiceLayout';
 
 const services = [
