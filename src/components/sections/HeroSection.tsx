@@ -1,9 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { Phone, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, TouchEvent } from 'react';
 
 const slides = [
   {
@@ -42,6 +42,8 @@ const slides = [
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -58,8 +60,34 @@ export default function HeroSection() {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+  const handleTouchStart = (e: TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const swipeDistance = touchEndX.current - touchStartX.current;
+    const minSwipeDistance = 50;
+
+    if (Math.abs(swipeDistance) > minSwipeDistance) {
+      if (swipeDistance > 0) {
+        prevSlide();
+      } else {
+        nextSlide();
+      }
+    }
+  };
+
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section 
+      className="relative h-screen w-full overflow-hidden"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-5 z-10" />
 
@@ -81,8 +109,9 @@ export default function HeroSection() {
               alt={slide.alt}
               fill
               sizes="100vw"
-              className={`object-cover ${index === 3 ? 'object-[center_20%]' : 'object-center'}`}
+              className={`object-cover ${index === 3 ? 'object-[center_20%]' : 'object-center'} select-none`}
               priority={index === 0}
+              draggable={false}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
           </motion.div>
@@ -137,19 +166,21 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Navigation Buttons */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 z-30 -translate-y-1/2 rounded-full bg-white/90 p-3 text-gray-800 shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-blue-600"
-      >
-        <ChevronLeft className="h-6 w-6" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 z-30 -translate-y-1/2 rounded-full bg-white/90 p-3 text-gray-800 shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-blue-600"
-      >
-        <ChevronRight className="h-6 w-6" />
-      </button>
+      {/* Navigation Buttons - Hidden on mobile, visible on desktop */}
+      <div className="hidden sm:block">
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 z-30 -translate-y-1/2 rounded-full bg-white/90 p-3 text-gray-800 shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-blue-600"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 z-30 -translate-y-1/2 rounded-full bg-white/90 p-3 text-gray-800 shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-blue-600"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
+      </div>
 
       {/* Dots */}
       <div className="absolute bottom-8 left-1/2 z-30 flex -translate-x-1/2 gap-2">

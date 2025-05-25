@@ -2,9 +2,28 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-import { Menu, X, Phone, Instagram } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Menu, X, Phone, Instagram, ChevronDown } from 'lucide-react';
 import { useScroll, useMotionValueEvent } from 'framer-motion';
+
+const services = [
+  { 
+    name: 'Sağlık Hizmetleri',
+    href: '/hizmetler/saglik-hizmetleri'
+  },
+  { 
+    name: 'Genel Cerrahi',
+    href: '/hizmetler/genel-cerrahi'
+  },
+  { 
+    name: 'Pet Kuaför & Bakım',
+    href: '/hizmetler/pet-kuafor'
+  },
+  { 
+    name: 'Pet Mamalar',
+    href: '/hizmetler/pet-mama'
+  }
+];
 
 const navigation = [
   { 
@@ -13,7 +32,8 @@ const navigation = [
   },
   { 
     name: 'HİZMETLERİMİZ',
-    href: '/#hizmetlerimiz'
+    href: '/#hizmetlerimiz',
+    dropdown: true
   },
   { 
     name: 'EKİBİMİZ',
@@ -21,7 +41,7 @@ const navigation = [
   },
   { 
     name: 'GALERİ',
-    href: '/#galeri'
+    href: '/galeri'
   },
   { 
     name: 'İLETİŞİM',
@@ -32,13 +52,26 @@ const navigation = [
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
     if (latest > previous && latest > 150) {
       setHidden(true);
       setMobileMenuOpen(false);
+      setDropdownOpen(false);
     } else {
       setHidden(false);
     }
@@ -97,13 +130,40 @@ export default function Navbar() {
 
             <div className="hidden lg:flex lg:flex-1 lg:justify-center lg:gap-x-12">
               {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-sm font-semibold leading-6 text-gray-600 transition-colors hover:text-blue-600"
-                >
-                  {item.name}
-                </Link>
+                <div key={item.name} className="relative" ref={item.dropdown ? dropdownRef : null}>
+                  {item.dropdown ? (
+                    <button
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
+                      className="flex items-center gap-1 text-sm font-semibold leading-6 text-gray-600 transition-colors hover:text-blue-600"
+                    >
+                      {item.name}
+                      <ChevronDown className={`h-4 w-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="text-sm font-semibold leading-6 text-gray-600 transition-colors hover:text-blue-600"
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+
+                  {/* Dropdown Menu */}
+                  {item.dropdown && dropdownOpen && (
+                    <div className="absolute left-0 mt-2 w-48 rounded-md bg-white py-2 shadow-lg ring-1 ring-black ring-opacity-5">
+                      {services.map((service) => (
+                        <Link
+                          key={service.name}
+                          href={service.href}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600"
+                          onClick={() => setDropdownOpen(false)}
+                        >
+                          {service.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
 
@@ -124,19 +184,49 @@ export default function Navbar() {
           {/* Mobile menu */}
           <div 
             className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-              mobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+              mobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
             }`}
           >
             <div className="space-y-1 pb-3 pt-2">
               {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-blue-600"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
+                <div key={item.name}>
+                  {item.dropdown ? (
+                    <>
+                      <button
+                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                        className="flex w-full items-center justify-between rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-blue-600"
+                      >
+                        {item.name}
+                        <ChevronDown className={`h-4 w-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                      </button>
+                      {dropdownOpen && (
+                        <div className="ml-4 space-y-1">
+                          {services.map((service) => (
+                            <Link
+                              key={service.name}
+                              href={service.href}
+                              className="block rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-blue-600"
+                              onClick={() => {
+                                setDropdownOpen(false);
+                                setMobileMenuOpen(false);
+                              }}
+                            >
+                              {service.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-blue-600"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+                </div>
               ))}
             </div>
           </div>

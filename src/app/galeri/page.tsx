@@ -52,25 +52,25 @@ export default function GalleryPage() {
     <main className="min-h-screen bg-white pt-24">
       <div className="container mx-auto p-4">
         {/* Gallery Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid gap-2 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {gallery.map((item, index) => (
             <div
               key={item.id}
-              className="group relative overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:shadow-xl"
+              className="group relative overflow-hidden rounded-lg bg-white shadow-sm transition-all duration-300 hover:shadow-md cursor-pointer"
               onClick={() => setSelectedImage(index)}
             >
-              <div className="relative aspect-[4/3] w-full overflow-hidden">
+              <div className="relative aspect-square w-full overflow-hidden">
                 <Image
                   src={item.image}
                   alt={item.description}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <p className="text-sm font-medium">{item.description}</p>
+              <div className="absolute bottom-0 left-0 right-0 p-2 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <p className="text-xs font-medium line-clamp-2">{item.description}</p>
               </div>
             </div>
           ))}

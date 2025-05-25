@@ -110,8 +110,8 @@ export default function ContactPage() {
                     >
                       <Icon size={24} />
                     </motion.div>
-                    <h3 className="mb-2 text-lg font-bold text-gray-900">{info.title}</h3>
-                    <div className="flex grow flex-col justify-center space-y-2">
+                    <h3 className="mb-2 text-lg font-bold text-gray-900 text-center">{info.title}</h3>
+                    <div className="flex grow flex-col justify-center space-y-2 text-center">
                       {info.details.map((detail) => (
                         <div key={detail.label}>
                           <p className="text-sm font-medium text-gray-500">{detail.label}</p>

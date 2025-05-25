@@ -25,6 +25,26 @@ const services = [
     ],
     icon: '/images/surgery.png',
     link: '/hizmetler/genel-cerrahi'
+  },
+  {
+    title: 'Pet Kuaför & Bakım',
+    description: 'Profesyonel ekibimizle evcil dostlarınıza özel bakım hizmetleri',
+    details: [
+      'Uzman Kuaför Ekibi',
+      'Hijyenik Bakım Ortamı'
+    ],
+    icon: '/images/grooming.png',
+    link: '/hizmetler/pet-kuafor'
+  },
+  {
+    title: 'Pet Mamalar',
+    description: 'Evcil dostlarınız için özel seçilmiş kaliteli mama çeşitleri',
+    details: [
+      'Geniş Ürün Yelpazesi',
+      'Veteriner Hekim Danışmanlığı'
+    ],
+    icon: '/images/food.png',
+    link: '/hizmetler/pet-mama'
   }
 ];
 
@@ -58,7 +78,7 @@ export default function ServicesSection() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {services.map((service, index) => (
             <Link 
               href={service.link} 
@@ -69,15 +89,15 @@ export default function ServicesSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-[#f8f9ff] rounded-lg p-8 h-full hover:shadow-lg transition-all group-hover:bg-white"
+                className="bg-[#f8f9ff] rounded-lg p-8 h-full hover:shadow-lg transition-all group-hover:bg-white flex flex-col"
               >
-                <div className="mb-6">
+                <div className="h-12 mb-6 flex items-center">
                   <Image 
                     src={service.icon} 
                     alt={service.title} 
                     width={48}
                     height={48}
-                    className="text-[#1e3c72]"
+                    className="text-[#1e3c72] object-contain"
                   />
                 </div>
                 
@@ -88,12 +108,14 @@ export default function ServicesSection() {
                   {service.description}
                 </p>
 
-                {service.details.map((detail, idx) => (
-                  <div key={idx} className="flex items-center gap-2 mb-2 text-gray-700">
-                    <Check size={16} className="text-green-500 flex-shrink-0" />
-                    <span>{detail}</span>
-                  </div>
-                ))}
+                <div className="flex-grow">
+                  {service.details.map((detail, idx) => (
+                    <div key={idx} className="flex items-center gap-2 mb-2 text-gray-700">
+                      <Check size={16} className="text-green-500 flex-shrink-0" />
+                      <span>{detail}</span>
+                    </div>
+                  ))}
+                </div>
 
                 <div className="mt-6 text-[#1e62b3] font-semibold group-hover:text-[#154785] transition-colors flex items-center gap-1">
                   Devamını Oku

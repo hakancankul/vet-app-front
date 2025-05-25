@@ -82,3 +82,32 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* Scrollbar her zaman görünür olsun */
+html {
+  overflow-y: scroll;
+}
+
+/* Scrollbar stilini özelleştirme */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Firefox için scrollbar stili */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
