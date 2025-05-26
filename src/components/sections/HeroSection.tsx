@@ -94,7 +94,7 @@ export default function HeroSection() {
     }
   };
 
-  const handleTouchEnd = (e: TouchEvent) => {
+  const handleTouchEnd = () => {
     if (isTouchingButton.current || !isSliding.current) return;
 
     const swipeDistance = touchEndX.current - touchStartX.current;
