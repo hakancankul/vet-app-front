@@ -53,6 +53,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
 
@@ -110,7 +111,7 @@ export default function Navbar() {
         <nav className="mx-auto max-w-7xl px-4 lg:px-8" aria-label="Global">
           {/* Main navbar content */}
           <div className="flex h-14 items-center">
-            <Link href="/" className="p-0 transition-transform hover:scale-105">
+            <Link href="/" className="p-0">
               <span className="sr-only">Veteriner Kliniği</span>
               <div className="flex items-center gap-2 px-2 py-1.5">
                 <Image
@@ -187,19 +188,19 @@ export default function Navbar() {
               mobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
             }`}
           >
-            <div className="space-y-1 pb-3 pt-2">
+            <div className="space-y-1 px-2 pb-3 pt-2">
               {navigation.map((item) => (
                 <div key={item.name}>
                   {item.dropdown ? (
                     <>
                       <button
-                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                        onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
                         className="flex w-full items-center justify-between rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-blue-600"
                       >
                         {item.name}
-                        <ChevronDown className={`h-4 w-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`h-4 w-4 transition-transform ${mobileDropdownOpen ? 'rotate-180' : ''}`} />
                       </button>
-                      {dropdownOpen && (
+                      {mobileDropdownOpen && (
                         <div className="ml-4 space-y-1">
                           {services.map((service) => (
                             <Link
@@ -207,7 +208,7 @@ export default function Navbar() {
                               href={service.href}
                               className="block rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-blue-600"
                               onClick={() => {
-                                setDropdownOpen(false);
+                                setMobileDropdownOpen(false);
                                 setMobileMenuOpen(false);
                               }}
                             >

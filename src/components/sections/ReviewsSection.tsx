@@ -19,13 +19,13 @@ export default function ReviewsSection() {
   };
 
   const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    const dragDistance = info.offset.x;
-    const dragThreshold = 50; // minimum drag distance to trigger slide change
-
-    if (dragDistance > dragThreshold) {
-      prevReview();
-    } else if (dragDistance < -dragThreshold) {
-      nextReview();
+    const swipeThreshold = 50;
+    if (Math.abs(info.offset.x) > swipeThreshold) {
+      if (info.offset.x > 0) {
+        prevReview();
+      } else {
+        nextReview();
+      }
     }
   };
 
@@ -44,59 +44,62 @@ export default function ReviewsSection() {
         </div>
 
         <div className="relative">
-          <motion.div
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.2}
-            onDragEnd={handleDragEnd}
-            className="relative touch-pan-x"
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5 }}
-                className="bg-white rounded-2xl p-6 md:p-8 shadow-sm text-center max-w-4xl mx-auto select-none"
-              >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.5 }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={handleDragEnd}
+              className="bg-white rounded-2xl p-6 md:p-8 shadow-sm text-center max-w-4xl mx-auto select-none cursor-grab active:cursor-grabbing"
+            >
+              {/* Card Content Container - Fixed Height */}
+              <div className="h-[500px] flex flex-col">
                 {/* Stars Section */}
-                <div className="flex justify-center mb-4">
+                <div className="flex justify-center mb-8">
                   {[...Array(reviews[currentIndex].rating)].map((_, i) => (
                     <Star
                       key={i}
-                      size={20}
+                      size={24}
                       className="text-yellow-400 fill-yellow-400"
                     />
                   ))}
                 </div>
 
-                {/* Comment Section - Make it not interfere with swipe */}
-                <div className="h-[200px] md:h-[180px] overflow-y-auto mb-6 px-2 touch-pan-y">
-                  <p className="text-gray-700 text-base md:text-lg italic">
-                    &ldquo;{reviews[currentIndex].comment}&rdquo;
-                  </p>
+                {/* Comment Section - Auto height with padding */}
+                <div className="flex-1 flex items-center justify-center px-4">
+                  <div className="max-w-2xl">
+                    <p className="text-gray-700 text-base md:text-lg italic leading-relaxed">
+                      &ldquo;{reviews[currentIndex].comment}&rdquo;
+                    </p>
+                  </div>
                 </div>
 
-                {/* Profile Section */}
-                <div className="flex items-center justify-center gap-4 pt-4 border-t border-gray-100">
-                  <div className="relative w-12 h-12 overflow-hidden rounded-full border-2 border-gray-100">
-                    <Image
-                      src={reviews[currentIndex].profileImage}
-                      alt={reviews[currentIndex].name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-semibold text-gray-900">
-                      {reviews[currentIndex].name}
+                {/* Profile Section - Fixed at bottom */}
+                <div className="mt-8 pt-6 border-t border-gray-100">
+                  <div className="flex items-center justify-center gap-4">
+                    <div className="relative w-12 h-12 overflow-hidden rounded-full border-2 border-gray-100">
+                      <Image
+                        src={reviews[currentIndex].profileImage}
+                        alt={reviews[currentIndex].name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="text-left">
+                      <div className="font-semibold text-gray-900">
+                        {reviews[currentIndex].name}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
           {/* Navigation Buttons - Hidden on mobile */}
           <div className="hidden sm:block">

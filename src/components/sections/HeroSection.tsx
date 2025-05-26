@@ -44,13 +44,26 @@ export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const isSliding = useRef(false);
+  const isTouchingButton = useRef(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 10000);
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
+
+  const getSlideX = (index: number) => {
+    const diff = index - currentSlide;
+    if (currentSlide === slides.length - 1 && index === 0) {
+      return 100; // İlk slayt sağdan gelsin
+    }
+    if (currentSlide === 0 && index === slides.length - 1) {
+      return -100; // Son slayt soldan gelsin
+    }
+    return diff * 100;
+  };
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -61,14 +74,29 @@ export default function HeroSection() {
   };
 
   const handleTouchStart = (e: TouchEvent) => {
+    // Eğer dokunulan element bir buton veya link ise swipe'ı engelle
+    const target = e.target as HTMLElement;
+    if (target.closest('a') || target.closest('button')) {
+      isTouchingButton.current = true;
+      return;
+    }
+    isTouchingButton.current = false;
     touchStartX.current = e.touches[0].clientX;
+    isSliding.current = false;
   };
 
   const handleTouchMove = (e: TouchEvent) => {
+    if (isTouchingButton.current) return;
+    
     touchEndX.current = e.touches[0].clientX;
+    if (Math.abs(touchEndX.current - touchStartX.current) > 10) {
+      isSliding.current = true;
+    }
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e: TouchEvent) => {
+    if (isTouchingButton.current || !isSliding.current) return;
+
     const swipeDistance = touchEndX.current - touchStartX.current;
     const minSwipeDistance = 50;
 
@@ -99,9 +127,12 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ 
               opacity: currentSlide === index ? 1 : 0,
-              x: `${(index - currentSlide) * 100}%`
+              x: `${getSlideX(index)}%`
             }}
-            transition={{ duration: 0.5 }}
+            transition={{ 
+              duration: 0.5,
+              ease: "easeInOut"
+            }}
             className="absolute inset-0"
           >
             <Image
@@ -142,23 +173,23 @@ export default function HeroSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+                className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center px-4 sm:px-0"
               >
                 <a
                   href="https://wa.me/905541730586?text=Merhaba,%20veteriner%20kliniğinizden%20randevu%20almak%20istiyorum.%20Müsait%20olan%20randevu%20saatlerini%20öğrenebilir%20miyim?"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex w-full items-center justify-center gap-2 rounded-full bg-green-600 px-8 py-3.5 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:bg-green-700 hover:shadow-green-200/50 sm:w-auto backdrop-blur-sm"
+                  className="group flex w-full items-center justify-center gap-2 rounded-full bg-green-600 px-6 py-4 sm:px-8 sm:py-3.5 text-base sm:text-lg font-bold text-white shadow-lg active:bg-green-700 active:shadow-inner sm:w-auto backdrop-blur-sm touch-manipulation"
                 >
-                  <MessageCircle className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
-                  WHATSAPP İLE RANDEVU
+                  <MessageCircle className="h-5 w-5" />
+                  <span className="whitespace-nowrap">WHATSAPP İLE RANDEVU</span>
                 </a>
                 <a
                   href="tel:+905541730586"
-                  className="group flex w-full items-center justify-center gap-2 rounded-full border-2 border-white/80 bg-white/10 px-8 py-3.5 text-lg font-bold text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:border-white sm:w-auto"
+                  className="group flex w-full items-center justify-center gap-2 rounded-full border-2 border-white/80 bg-white/10 px-6 py-4 sm:px-8 sm:py-3.5 text-base sm:text-lg font-bold text-white shadow-lg backdrop-blur-sm active:bg-white/30 active:shadow-inner sm:w-auto touch-manipulation"
                 >
-                  <Phone className="h-5 w-5 animate-pulse text-blue-400" />
-                  0554 173 05 86
+                  <Phone className="h-5 w-5 text-blue-400" />
+                  <span className="whitespace-nowrap">0554 173 05 86</span>
                 </a>
               </motion.div>
             )}

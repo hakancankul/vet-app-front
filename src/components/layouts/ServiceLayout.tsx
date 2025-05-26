@@ -94,9 +94,9 @@ export default function ServiceLayout({ title, description, services }: ServiceP
               </p>
               <a
                 href="tel:+902324253232"
-                className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+                className="inline-flex items-center justify-center px-8 py-3 text-base font-medium rounded-full border-2 border-gray-900 text-gray-900 bg-transparent hover:bg-gray-900 hover:text-white transition-all duration-300"
               >
-                Hemen Arayın
+                Bilgi / Randevu
               </a>
             </motion.div>
           </div>
